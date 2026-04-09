@@ -1,4 +1,6 @@
-# Для 3d графики требуется подключить для VSCode Ubuntu в launch.json. 3d ускорение для Virtual Box включать не надо.
+# Инструкция
+
+## Для 3d графики требуется подключить для VSCode Ubuntu в launch.json. 3d ускорение для Virtual Box включать не надо.
 
 ```
     "vmArgs": [
