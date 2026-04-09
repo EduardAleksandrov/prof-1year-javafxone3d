@@ -17,7 +17,6 @@
                 "-Dprism.verbose=true",
                 "-Dprism.order=es2",
                 "-Dprism.forceGPU=true",
-
             ]
         }
     ]
