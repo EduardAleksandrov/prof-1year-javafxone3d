@@ -45,6 +45,11 @@ public class App extends Application {
         launch();
     }
 
+    // Для мышки
+    private static double anchorX, anchorY;
+    private static double anchorAngleX = 0;
+    private static double anchorAngleY = 0;
+
     public static void cube(Stage stage) throws IOException {
         // --- 1. Настройка 3D контента ---
         
@@ -53,6 +58,11 @@ public class App extends Application {
         PhongMaterial material = new PhongMaterial(Color.ORANGE);
         material.setSpecularColor(Color.WHITE);
         box.setMaterial(material);
+
+        // Создаем трансформации поворота для мышки
+        Rotate xRotate = new Rotate(0, Rotate.X_AXIS);
+        Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
+        box.getTransforms().addAll(xRotate, yRotate);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-400);
@@ -65,6 +75,22 @@ public class App extends Application {
         SubScene subScene = new SubScene(world, 600, 400, true, SceneAntialiasing.BALANCED);
         subScene.setCamera(camera);
         subScene.setFill(Color.DARKSLATEGRAY);
+
+        // --- ЛОГИКА МЫШКИ ---
+        subScene.setOnMousePressed(event -> {
+            anchorX = event.getSceneX();
+            anchorY = event.getSceneY();
+            anchorAngleX = xRotate.getAngle();
+            anchorAngleY = yRotate.getAngle();
+        });
+
+        subScene.setOnMouseDragged(event -> {
+            // Поворот вокруг Y зависит от движения мыши по горизонтали (X)
+            yRotate.setAngle(anchorAngleY + (event.getSceneX() - anchorX));
+            // Поворот вокруг X зависит от движения мыши по вертикали (Y)
+            xRotate.setAngle(anchorAngleX - (event.getSceneY() - anchorY));
+        });
+        // ---------------------
 
         // 3. 2D Overlay
         Button btn = new Button("Go to Secondary");

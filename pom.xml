@@ -42,6 +42,12 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>com.example.App</mainClass>
+                            <options>
+                                <option>-Dcom.sun.javafx.experimental.embedded.3d=true</option>
+                                <option>-Dprism.verbose=true</option>
+                                <option>-Dprism.order=es2</option>
+                                <option>-Dprism.forceGPU=true</option>
+                            </options>
                         </configuration>
                     </execution>
                 </executions>
